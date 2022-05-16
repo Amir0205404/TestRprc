@@ -1,0 +1,40 @@
+@model IEnumerable<TestApp.Models.Entities.Position>
+
+@{
+    ViewBag.Title = "Должности";
+}
+
+<head>
+    <link rel="stylesheet" href="~/fontawesome-free-6.1.1-web/css/all.min.css">
+</head>
+<div class="role__container">
+    <div class="employee-option__flex">
+        <div>
+            <input hidden class="form-control">
+        </div>  
+        <div>
+            <a class="btn btn-sm btn-primary add-employee__button" asp-controller="Position" asp-action="AddPosition">
+                Добавление должности
+            </a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <tr><th>Должность</th><th class="action__nav">Действия</th></tr>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td class="action-employee__button">@role.position_name</td>
+                <td class="action-employee__button">
+                    <form asp-controller="Position" asp-action="DeletePosition" asp-route-positionId="@role.position_id">
+                        <a asp-controller="Position" asp-action="UpdatePosition" asp-route-positionId="@role.position_id" class="btn btn-sm btn-primary edit-employee__button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i title="Удаление должности" class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

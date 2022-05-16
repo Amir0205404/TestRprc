@@ -1,0 +1,36 @@
+@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+<head>
+    <link rel="stylesheet" href="~/fontawesome-free-6.1.1-web/css/all.min.css">
+</head>
+<div class="role__container">
+    <div class="employee-option__flex">
+        <div>
+            <input hidden class="form-control">
+        </div>  
+        <div>
+            <a class="btn btn-sm btn-primary add-employee__button" asp-controller="Role" asp-action="AddRole">
+                Добавление роли
+            </a> 
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <tr><th>Роль</th><th class="action__nav">Действия</th></tr>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td class="action-employee__button">@role.Name</td>
+                <td class="action-employee__button">
+                    <form asp-controller="Role" asp-action="DeleteRole" asp-route-roleId="@role.Id">
+                        <a asp-controller="Role" asp-action="UpdateRole" asp-route-roleId="@role.Id" class="btn btn-sm btn-primary edit-employee__button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i title="Удаление роли" class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

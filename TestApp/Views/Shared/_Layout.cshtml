@@ -1,0 +1,77 @@
+﻿@{
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>  
+</head>
+<body>
+<header>
+    <div class="container container__header">
+        <div class="flex-box__header">
+            <div class="nav-item">
+                <div class="header-element">
+                    <span class="nav-title">
+                        <a asp-controller="Home" asp-action="Index">Главная</a>
+                    </span>
+                </div>
+                @if (User.IsInRole("admin"))
+                {
+                    <div class="header-element">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Админ
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="Employee" asp-action="GetAllEmployees">Рабы</a>
+                                <a class="dropdown-item" asp-controller="Role" asp-action="GetAllRoles">Роли</a>
+                                <a class="dropdown-item" asp-controller="Position" asp-action="GetAllPositions">Должности</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="nav-item">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="header-element">
+                        <span class="nav-title">
+                            <a asp-controller="Account" asp-action="Login">Вход</a>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="header-element logout__nav">
+                        <span class="nav-title logout">
+                            <a asp-controller="Account" asp-action="Logout">Выход</a>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+        </div>
+    <div class="border-bot__header"></div>
+</header>
+<div class="container container__body">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2022 - РПРЦ
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

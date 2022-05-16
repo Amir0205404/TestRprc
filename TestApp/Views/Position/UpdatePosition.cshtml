@@ -1,0 +1,19 @@
+@model TestApp.Models.Entities.Position
+
+@{
+    ViewBag.Title = "Обновление должности";
+}
+<div class="edit-employee__container">
+    <h3>Обновление должности</h3>
+    <form asp-action="UpdatePosition" asp-controller="Position">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input hidden asp-for="position_id"> 
+        <div class="form-group">
+            <label asp-for="position_name" class="control-label">Должность</label>
+            <input type="text" asp-for="position_name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        </div>
+    </form>
+</div>

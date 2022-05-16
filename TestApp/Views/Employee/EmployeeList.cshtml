@@ -1,0 +1,54 @@
+@model List<TestApp.Models.DTO.EmployeeInfoDto>
+
+<head>
+    <link rel="stylesheet" href="~/fontawesome-free-6.1.1-web/css/all.min.css">
+</head>
+
+<div class="employee-option__flex">
+    <div>
+        <input hidden class="form-control">
+    </div>  
+    <div>
+        <a class="btn btn-sm btn-primary add-employee__button" asp-controller="Employee" asp-action="AddEmployee">
+            <i class="fa-solid fa-user-plus"></i>
+        </a> 
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <tr><th>Фамилия</th><th>Имя</th><th>Отчество</th><th>Логин</th><th>Роли</th><th>Должности</th><th class="action__nav">Действия</th></tr>
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee.SecondName</td>
+            <td>@employee.FirstName</td>
+            <td>@employee.LastName</td>
+            <td>@employee.EmployeeLogin</td>
+            <td>
+                <ul>
+                    @foreach (var roleName in employee.RoleNameList)
+                    {
+                        <li>@roleName</li>
+                    }
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    @foreach (var positionName in employee.PositionNameList)
+                    {
+                        <li>@positionName</li>
+                    }
+                </ul>
+            </td>
+            <td class="action-employee__button">
+                <form asp-controller="Employee" asp-action="DeleteEmployee" asp-route-employeeLogin="@employee.EmployeeLogin">
+                    <a asp-action="Edit" asp-route-EmployeeLogin="@employee.EmployeeLogin" class="btn btn-sm btn-primary edit-employee__button">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
